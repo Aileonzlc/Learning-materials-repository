@@ -1,0 +1,184 @@
+16:10 2014/6/6
+物理层
+    网络设备的机械特性 电器特性 功能特性 过程特性
+    数据通信的基础知识
+        数字信号
+        模拟信号
+    频分多路复用
+    时分多路复用
+
+数据链路层
+   封装成帧
+   透明封装
+   无差错接受  
+
+   点到点线路的数据链路层 PPP
+   广播信道的数据链路层 CSMA/CD  
+
+   以太网 集线器 网桥 交换机 
+   100M 1000M 10000M以太网
+
+网络层 负责在不同网络之间尽力转发数据包 基于数据包的IP地址转发
+       不负责丢失重传 不负责顺序
+
+
+
+
+Continue with configuration dialog? [yes/no]: n
+
+
+Press RETURN to get started!
+
+
+
+
+Router>enable 
+Router#config terminal 
+Router(config)#interface fastEthernet 0/0
+Router(config-if)#no shutdown 
+Router(config-if)#ip address 10.0.0.1 255.0.0.0
+Router(config-if)#exit
+Router(config)#interface serial 2/0
+Router(config-if)#no shutdown 
+Router(config-if)#clock rate 64000
+Router(config-if)#ip address 11.0.0.1 255.0.0.0
+
+
+
+
+Continue with configuration dialog? [yes/no]: n
+Router>enable 
+Router#config t
+Router(config)#interface serial 3/0
+Router(config-if)#ip address 11.0.0.2 255.0.0.0
+Router(config-if)#no shutdown 
+Router(config-if)#exit
+Router(config)#interface fastEthernet 0/0
+Router(config-if)#ip address 12.0.0.1 255.255.0.0
+Router(config-if)#no shutdown 
+
+
+
+
+查看路由表
+Router#show ip route 
+Router#config terminal 
+Router(config)#ip route 12.0.0.0 255.255.0.0 11.0.0.2
+
+Router>enable 
+Router#conf t
+Router(config)#ip route 10.0.0.0 255.0.0.0 11.0.0.1
+Router(config)#^Z
+
+
+
+网络设备和OSI参考模型关系
+计算机通信的过程 本网段通信跨网段通信的过程
+
+
+发送端
+1.应用程序准备要传输的文件
+2.传输层 将文件分段 并编号
+3.网络层 添加目标IP地址源IP地址8
+4.数据链路层 两种情况 使用自己的子网掩码 判断自己在哪个网段 
+                      使用自己的子网掩码 判断目标地址在哪个网段
+                      如果是同一个网段 arp协议广播解析目标IP地址的MAC           
+                      如果不是同一个网段
+
+
+
+网络层协议
+  ARP 将IP地址通过广播 目标MAC地址是FF-FF-FF-FF-FF-FF 解析目标IP地址的MAC地址
+  扫描本网段MAC地址
+
+   网络执法官
+   arp -s 192.168.80.1 00-0C-29-53-48-C3
+   arp -a
+   本地连接 修复
+
+使用ICMP协议的命令
+   ping time 查看延迟
+        Linux 64
+        Windows 128
+        Unix  255
+
+   ping 10.7.1.53 -t
+   ping -l 200 10.7.1.53
+   ping 10.7.1.53 -l 200
+   ping 8.8.8.8 -i 2 更改数据包TTL时间 能够跟踪数据包途径的路由器
+
+   如何排除网络故障 
+   ping 估算网络是否畅通
+
+   pathping 跟踪数据包路径 计算丢包情况
+   Windows上跟踪数据包路径的命令
+   tracert 10.7.1.53 
+   在路由器上跟踪数据包路径的命令
+   traceroute 12.0.0.3
+
+
+IGMP 
+   点到点
+   广播
+   组播=多播
+
+                      
+IP数据包结构
+    版本 用来表示 TCP/IP协议的版本 v4 v6
+    区分服务 Windows 2008上 gpedit.msc
+  
+    网络层 数据包 65535字节
+    数据链路层 数据1500 字节  最大传输单元 MTU
+    数据包 如果不分片 数据包数据最大不超过1480字节
+
+数据包分片 
+
+
+协议号 ICMP 协议号1  IGMP协议 2 TCP 6  UDP 17  IPv6 41  OSPF 89
+
+
+网络畅通的条件 数据包有去有回 
+
+
+Router>en
+Router#config t
+Router(config)#interface fastEthernet 0/0
+Router(config-if)#ip address 192.168.0.1 255.255.255.0
+Router(config-if)#no shutdown
+Router(config-if)#exit
+Router(config)#interface serial 2/0
+Router(config-if)#clock rate ?
+Router(config-if)#clock rate 64000
+Router(config-if)#ip address 172.16.0.1 255.255.255.0
+Router(config-if)#no shutdown 
+
+
+
+Router>en
+Router#configure terminal 
+Router(config)#interface serial 3/0
+Router(config-if)#no sh
+Router(config-if)#ip address 172.16.0.2 255.255.255.0
+Router(config-if)#ex
+Router(config)#interface serial 2/0
+Router(config-if)#clock rate 64000
+Router(config-if)#ip address 172.16.1.1 255.255.255.0
+Router(config-if)#no shutdown 
+
+静态路由
+    需要管理员告诉路由器所有没有直连的网络下一跳给谁
+
+    静态路由的缺点 适合于小规模网络 不能够自动调整路由
+
+动态路由
+    RIP 周期性广播路由表 跳数 30秒更新一下路由信息 最大跳数 15跳 
+
+
+RA#config t
+RA(config)#router rip 
+RA(config-router)#network 192.168.0.0
+RA(config-router)#network 192.168.1.0
+RA(config-router)#network 192.168.2.0
+RA(config-router)#network 192.168.7.0
+RA#show ip prot
+

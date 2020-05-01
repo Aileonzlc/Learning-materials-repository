@@ -1,0 +1,114 @@
+讲师：韩立刚
+QQ：458717185
+QQ教学群：247549141
+
+
+安全包括哪些方面
+    数据存储安全
+    应用程序安全
+    操作系统安全
+    网络安全
+    物理安全
+    用户安全教育
+
+网络安全面临的问题
+
+
+木马程序
+    1.查看会话 netstat -n 是否有可疑会话
+    2.运行msconfig 服务 隐藏微软服务 
+    3.安装杀毒软件
+
+
+加密技术
+    对称加密  优点 效率高 缺点 秘钥不适合在网上传输 秘钥维护 麻烦
+      加密算法
+      加密秘钥 
+ 
+    非对称加密 加密秘钥和解密秘钥是不同  密钥对 公钥和私钥
+               公钥加密私钥解密 
+               私钥加密公钥解密
+
+       非对称加密细节
+       数字签名  防止抵赖 能够检查签名之后内容是否被更改
+
+    证书颁发机构作用 为企业和用户颁发数字证书 确认这些企业和个人的身份
+                     发布证书吊销列表
+                     企业和个人信任证书颁发机构
+   
+
+   WindowsServer2003  CA
+   WindowsXP1         zhang     zhang91xueit@yeah.net
+   WindowsXP2         wang      wang91xueit@yeah.net
+
+
+在Internet上使用的两个安全协议
+    imaps tcp-993
+    pop3s tcp-995
+    smtps tcp-465
+    https tcp-443
+
+使用IPSec实现网络层加密通信
+
+数据链路层安全
+    数据链路层身份验证 PPP  身份验证
+    ADSL 数据链路层安全  
+    
+
+
+
+Router>en
+Router#config t
+Router(config)#hostname RA
+RA(config)#interface serial 2/0
+RA(config-if)#clock rate 64000
+RA(config-if)#encapsulation ppp
+RA(config-if)#no shutdown 
+RA(config-if)#ip address 192.168.0.1 255.255.255.0 
+RA(config-if)#exit 
+RA(config)#username RB password 91xueit
+RA(config)#interface serial 2/0
+RA(config-if)#ppp authentication chap 
+
+
+Router>en
+Router#config t
+Router(config)#hostname RB 
+RB(config)#interface serial 3/0
+RB(config-if)#encapsulation ppp
+RB(config-if)#no sh
+RB(config-if)#ip address 192.168.0.2 255.255.255.0
+RB(config-if)#^Z
+RB#ping 192.168.0.1
+RB#config t
+RB(config)#username RA password 91xueit
+RB(config)#interface serial 3/0
+RB(config-if)#ppp authentication chap 
+RB#ping 192.168.0.1
+
+防火墙
+   网络层防火墙  基于数据包 源地址 目标地址 协议和端口 控制流量
+   应用层防火墙  数据包 源地址  目标地址 协议 端口  用户名 时间段 内容 防病毒进入内网
+
+防火墙网络拓扑
+   三像外围网
+   背靠背防火墙
+   单一网卡
+   边缘防火墙
+
+
+               
+
+
+
+
+
+
+
+
+
+
+
+
+
+

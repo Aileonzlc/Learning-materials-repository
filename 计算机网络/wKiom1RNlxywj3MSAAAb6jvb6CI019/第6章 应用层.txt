@@ -1,0 +1,111 @@
+韩立刚QQ：458717185
+QQ教学群：247549141
+报名QQ：417357313
+
+8:21 2014/6/22
+
+DNS服务作用
+    负责解析域名 将域名解析成IP
+        
+什么是域名
+            根                  .
+            顶级域名  com  edu net cn org gov  
+            二级域名  91xueit  inhe  
+            三级域名  dba
+
+域名解析测试
+   ping www.91xueit.com
+   nslookup www.91xueit.com
+
+域名注册
+
+域名解析的过程
+
+安装自己的DNS服务器
+    1.解析内网自己的域名
+    2.降低到Ineternet的域名解析流量    
+    3.域环境
+  
+
+DHCP 动态主机配置 
+
+静态IP地址
+
+动态IP地址
+
+DHCP客户端请求IP地址的过程
+
+DHCP服务器必须静态地址
+
+
+释放租约
+    ipconfig /release
+
+跨网段地址分配
+
+Router(config-if)#ip helper-address 192.168.0.100
+
+
+
+FTP协议
+   主动模式 ftp客户端告诉FTP服务器使用什么端口侦听
+           FTP服务器和FTP客户端的这个端口建立连接  源端口20
+
+   被动模式 FTP服务器打开一个新端口 等待FTP客户端的连接 
+  
+   FTP服务器端 如果有防火墙 需要在防火墙开21和20端口 使用主动模式进行数据连接
+
+
+
+
+telnet 使用TCP的23端口
+
+RDP协议
+net user administrator a1! 更改用户密码
+net user han a1! /add 添加用户
+将用户添加到远程桌面组 Remote Desktop Users组
+
+Server多用户操作系统 启用远程桌面可以多用户同时使用服务器
+XP和Windows7单用户操作系统 不支持多用户同时登陆
+
+如何将本地硬盘映射到远程
+
+
+安装Web服务 创建Web站点
+网站的标识 不同端口 不同的IP地址 使用主机头（域名）
+
+
+http Web
+
+使用Web代理服务器访问网站
+1.节省内网访问Internet的带宽
+2.通过Web代理绕过防火墙
+
+
+
+1.安装POP3和SMTP服务以及DNS服务
+2.在DNS服务器上 创建91xueit.com和51cto.com
+  创建主机记录mail 192.168.80.100
+  创建邮件交换记录 MX记录
+3.在POP3服务上创建域名 创建邮箱
+4.配置SMTP服务器 创建远程域名*.com 允许发送到远程
+5.配置outlookExpress 指明收件的服务器和发邮件的服务器
+                     使用POP3协议收邮件
+
+
+搭建能够在Internet上使用的邮件服务器
+1.在Internet上注册了域名 MX记录
+2.邮件服务器有公网IP地址 或端口映射到邮件服务器 SMTP TCP 25
+ 
+
+
+
+
+
+
+
+
+
+
+
+
